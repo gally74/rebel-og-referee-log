@@ -134,7 +134,7 @@ export default function MatchList({ matches, onRefresh, showPendingOnly }: Match
 const styles: Record<string, React.CSSProperties> = {
   wrap: { padding: 16, paddingBottom: 32 },
   filters: { display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' },
-  select: { padding: 8, borderRadius: 8, border: '1px solid var(--bg-card)', background: 'var(--bg)', color: 'var(--text)' },
+  select: { padding: 8, borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg-card)', color: 'var(--text)' },
   list: { listStyle: 'none', margin: 0, padding: 0 },
   card: { background: 'var(--bg-card)', borderRadius: 12, padding: 14, marginBottom: 10 },
   cardTop: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 },
@@ -143,7 +143,7 @@ const styles: Record<string, React.CSSProperties> = {
   teams: { fontWeight: 600, marginBottom: 4 },
   meta: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 },
   scores: { fontSize: 14, marginBottom: 4 },
-  resultSummary: { background: 'rgba(255,255,255,0.06)', borderRadius: 8, padding: 8, marginBottom: 8 },
+  resultSummary: { background: 'rgba(0,0,0,0.06)', borderRadius: 8, padding: 8, marginBottom: 8 },
   resultTotals: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 },
   resultLine: { fontSize: 14, fontWeight: 600 },
   notes: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 8 },

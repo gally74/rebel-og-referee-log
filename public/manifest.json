@@ -4,7 +4,7 @@
   "description": "Log GAA matches and compare with admin spreadsheet",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1e1e1e",
-  "theme_color": "#1e1e1e",
+  "background_color": "#f5f5f5",
+  "theme_color": "#f5f5f5",
   "icons": []
 }

@@ -92,7 +92,7 @@ export default function ComparisonView() {
 
 const styles: Record<string, React.CSSProperties> = {
   wrap: { padding: 16, maxWidth: 640, margin: '0 auto' },
-  upload: { display: 'inline-block', padding: '12px 20px', background: 'var(--accent)', color: 'var(--bg)', borderRadius: 8, fontWeight: 600, cursor: 'pointer' },
+  upload: { display: 'inline-block', padding: '12px 20px', background: 'var(--accent)', color: 'var(--on-accent)', borderRadius: 8, fontWeight: 600, cursor: 'pointer' },
   error: { color: 'var(--danger)', marginTop: 12 },
   sections: { marginTop: 24 },
   section: { marginBottom: 24 },

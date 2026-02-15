@@ -71,7 +71,7 @@ const navStyle: React.CSSProperties = {
   gap: 4,
   padding: 12,
   background: 'var(--bg-card)',
-  borderBottom: '1px solid rgba(255,255,255,0.1)',
+  borderBottom: '1px solid var(--border)',
   position: 'sticky',
   top: 0,
   zIndex: 10,
@@ -87,12 +87,12 @@ const navLinkStyle: React.CSSProperties = {
 
 const navLinkActive: React.CSSProperties = {
   background: 'var(--accent)',
-  color: 'var(--bg)',
+  color: 'var(--on-accent)',
 }
 
 const reminderBannerStyle: React.CSSProperties = {
   padding: '10px 16px',
-  background: 'rgba(86, 156, 214, 0.12)',
+  background: 'rgba(25, 118, 210, 0.1)',
   borderBottom: '1px solid var(--accent)',
   fontSize: 14,
   color: 'var(--text)',

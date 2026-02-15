@@ -1,12 +1,14 @@
 :root {
-  /* Cursor IDE–style dark theme */
-  --bg: #1e1e1e;
-  --bg-card: #252526;
-  --accent: #569cd6;
-  --text: #d4d4d4;
-  --text-muted: #808080;
-  --danger: #f48771;
-  --success: #4ec9b0;
+  /* Light theme – good for daylight and forms */
+  --bg: #f5f5f5;
+  --bg-card: #ffffff;
+  --border: #e0e0e0;
+  --accent: #1976d2;
+  --on-accent: #ffffff;
+  --text: #212121;
+  --text-muted: #757575;
+  --danger: #c62828;
+  --success: #2e7d32;
 }
 
 * {
