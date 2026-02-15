@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import type { Match, Sport } from '../types'
-import { updateMatch } from '../lib/storage'
+import { updateMatch, deleteMatch } from '../lib/storage'
 
 type FilterReport = 'all' | 'pending' | 'submitted'
 
@@ -25,6 +25,12 @@ export default function MatchList({ matches, onRefresh, showPendingOnly }: Match
   const toggleReport = (m: Match) => {
     if (m.outcome !== 'Result') return
     updateMatch(m.id, { reportSubmitted: !m.reportSubmitted })
+    onRefresh()
+  }
+
+  const handleDelete = (m: Match) => {
+    if (!window.confirm(`Delete ${m.date} ${m.team1} v ${m.team2}?`)) return
+    deleteMatch(m.id)
     onRefresh()
   }
 
@@ -64,15 +70,20 @@ export default function MatchList({ matches, onRefresh, showPendingOnly }: Match
             {m.outcome !== 'Result' && m.notes && (
               <div style={styles.notes}>{m.outcome}: {m.notes}</div>
             )}
-            {m.outcome === 'Result' && (
-              <button
-                type="button"
-                onClick={() => toggleReport(m)}
-                style={{ ...styles.reportBtn, ...(m.reportSubmitted ? styles.reportSubmitted : {}) }}
-              >
-                {m.reportSubmitted ? 'Report submitted' : 'Mark report submitted'}
+            <div style={styles.cardActions}>
+              {m.outcome === 'Result' && (
+                <button
+                  type="button"
+                  onClick={() => toggleReport(m)}
+                  style={{ ...styles.reportBtn, ...(m.reportSubmitted ? styles.reportSubmitted : {}) }}
+                >
+                  {m.reportSubmitted ? 'Report submitted' : 'Mark report submitted'}
+                </button>
+              )}
+              <button type="button" onClick={() => handleDelete(m)} style={styles.deleteBtn} aria-label="Delete match">
+                Delete
               </button>
-            )}
+            </div>
           </li>
         ))}
       </ul>
@@ -93,7 +104,9 @@ const styles: Record<string, React.CSSProperties> = {
   meta: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 },
   scores: { fontSize: 14, marginBottom: 8 },
   notes: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 8 },
+  cardActions: { display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', marginTop: 8 },
   reportBtn: { padding: '6px 12px', borderRadius: 8, border: '1px solid var(--accent)', background: 'transparent', color: 'var(--accent)', fontSize: 13 },
   reportSubmitted: { borderColor: 'var(--success)', color: 'var(--success)' },
+  deleteBtn: { padding: '6px 12px', borderRadius: 8, border: '1px solid var(--danger)', background: 'transparent', color: 'var(--danger)', fontSize: 13 },
   muted: { color: 'var(--text-muted)', padding: 16, margin: 0 },
 }
