@@ -64,6 +64,16 @@ export default function MatchForm({ onSaved, competitions: propCompetitions }: M
 
   const isCallOff = outcome !== 'Result'
 
+  const total1 = 3 * (Number(goals1) || 0) + (Number(points1) || 0)
+  const total2 = 3 * (Number(goals2) || 0) + (Number(points2) || 0)
+  const diff = Math.abs(total1 - total2)
+  const resultLine =
+    total1 === total2
+      ? `Draw (${total1}–${total2})`
+      : total1 > total2
+        ? `${team1 || 'Team 1'} won by ${diff} pt${diff !== 1 ? 's' : ''}`
+        : `${team2 || 'Team 2'} won by ${diff} pt${diff !== 1 ? 's' : ''}`
+
   return (
     <form onSubmit={handleSubmit} style={styles.form}>
       <div style={styles.row}>
@@ -127,6 +137,7 @@ export default function MatchForm({ onSaved, competitions: propCompetitions }: M
                 <label style={styles.smallLabel}>Points</label>
                 <input type="number" min={0} value={points1} onChange={(e) => setPoints1(e.target.value)} style={styles.scoreInput} placeholder="0" />
               </div>
+              <div style={styles.totalLine}>Total: {total1} pts</div>
             </div>
             <div style={styles.scoreBlock}>
               <div style={styles.scoreBlockLabel}>{team2 || 'Team 2'}</div>
@@ -138,8 +149,10 @@ export default function MatchForm({ onSaved, competitions: propCompetitions }: M
                 <label style={styles.smallLabel}>Points</label>
                 <input type="number" min={0} value={points2} onChange={(e) => setPoints2(e.target.value)} style={styles.scoreInput} placeholder="0" />
               </div>
+              <div style={styles.totalLine}>Total: {total2} pts</div>
             </div>
           </div>
+          <div style={styles.resultLine}>{resultLine}</div>
         </div>
       )}
       {isCallOff && (
@@ -176,5 +189,7 @@ const styles: Record<string, React.CSSProperties> = {
   scoreInputRow: { marginBottom: 8 },
   smallLabel: { display: 'block', fontSize: 12, color: 'var(--text-muted)', marginBottom: 2 },
   scoreInput: { width: '100%', padding: 8, borderRadius: 8, border: '1px solid var(--bg-card)', background: 'var(--bg)', color: 'var(--text)' },
+  totalLine: { fontSize: 13, fontWeight: 600, color: 'var(--text-muted)', marginTop: 6 },
+  resultLine: { marginTop: 12, padding: 10, background: 'rgba(255,255,255,0.06)', borderRadius: 8, fontSize: 14, fontWeight: 600 },
   button: { marginTop: 16, width: '100%', padding: 12, background: 'var(--accent)', color: 'var(--bg)', border: 'none', borderRadius: 8, fontWeight: 600 },
 }
