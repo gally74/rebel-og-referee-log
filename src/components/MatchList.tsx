@@ -48,6 +48,24 @@ export default function MatchList({ matches, onRefresh, showPendingOnly }: Match
     return total !== null ? `${score} (${total} pts)` : score
   }
 
+  /** Return { total1, total2 } or null if either score not parseable. */
+  const getTotals = (score1: string, score2: string): { total1: number; total2: number } | null => {
+    const t1 = scoreTotal(score1)
+    const t2 = scoreTotal(score2)
+    if (t1 === null || t2 === null) return null
+    return { total1: t1, total2: t2 }
+  }
+
+  const getResultLine = (m: Match): string | null => {
+    const t = getTotals(m.score1, m.score2)
+    if (!t) return null
+    const { total1, total2 } = t
+    const diff = Math.abs(total1 - total2)
+    if (total1 === total2) return `Draw (${total1}–${total2})`
+    if (total1 > total2) return `${m.team1} won by ${diff} pt${diff !== 1 ? 's' : ''}`
+    return `${m.team2} won by ${diff} pt${diff !== 1 ? 's' : ''}`
+  }
+
   return (
     <div style={styles.wrap}>
       {!showPendingOnly && (
@@ -77,7 +95,17 @@ export default function MatchList({ matches, onRefresh, showPendingOnly }: Match
             <div style={styles.teams}>{m.team1} v {m.team2}</div>
             <div style={styles.meta}>{m.competition}</div>
             {m.outcome === 'Result' && (
-              <div style={styles.scores}>{formatScore(m.score1)} – {formatScore(m.score2)}</div>
+              <>
+                <div style={styles.scores}>{formatScore(m.score1)} – {formatScore(m.score2)}</div>
+                {getTotals(m.score1, m.score2) && (
+                  <div style={styles.resultSummary}>
+                    <div style={styles.resultTotals}>
+                      Total: {scoreTotal(m.score1)} pts – {scoreTotal(m.score2)} pts
+                    </div>
+                    <div style={styles.resultLine}>{getResultLine(m)}</div>
+                  </div>
+                )}
+              </>
             )}
             {m.outcome !== 'Result' && m.notes && (
               <div style={styles.notes}>{m.outcome}: {m.notes}</div>
@@ -114,7 +142,10 @@ const styles: Record<string, React.CSSProperties> = {
   sport: { fontSize: 12, color: 'var(--text-muted)' },
   teams: { fontWeight: 600, marginBottom: 4 },
   meta: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 },
-  scores: { fontSize: 14, marginBottom: 8 },
+  scores: { fontSize: 14, marginBottom: 4 },
+  resultSummary: { background: 'rgba(0,0,0,0.15)', borderRadius: 8, padding: 8, marginBottom: 8 },
+  resultTotals: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 },
+  resultLine: { fontSize: 14, fontWeight: 600 },
   notes: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 8 },
   cardActions: { display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', marginTop: 8 },
   reportBtn: { padding: '6px 12px', borderRadius: 8, border: '1px solid var(--accent)', background: 'transparent', color: 'var(--accent)', fontSize: 13 },

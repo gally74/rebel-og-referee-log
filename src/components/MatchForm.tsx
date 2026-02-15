@@ -19,14 +19,22 @@ export default function MatchForm({ onSaved, competitions: propCompetitions }: M
   const [team1, setTeam1] = useState('')
   const [team2, setTeam2] = useState('')
   const [location, setLocation] = useState('')
-  const [score1, setScore1] = useState('')
-  const [score2, setScore2] = useState('')
+  const [goals1, setGoals1] = useState('')
+  const [points1, setPoints1] = useState('')
+  const [goals2, setGoals2] = useState('')
+  const [points2, setPoints2] = useState('')
   const [outcome, setOutcome] = useState<Outcome>('Result')
   const [notes, setNotes] = useState('')
   const compList = propCompetitions ?? getCompetitions()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const g1 = goals1.trim()
+    const p1 = points1.trim()
+    const g2 = goals2.trim()
+    const p2 = points2.trim()
+    const score1Str = !g1 && !p1 ? '–' : `${Number(g1) || 0}(${Number(p1) || 0})`
+    const score2Str = !g2 && !p2 ? '–' : `${Number(g2) || 0}(${Number(p2) || 0})`
     addMatch({
       sport,
       date,
@@ -34,8 +42,8 @@ export default function MatchForm({ onSaved, competitions: propCompetitions }: M
       team1: team1.trim(),
       team2: team2.trim(),
       location: location.trim() || undefined,
-      score1: score1.trim() || '–',
-      score2: score2.trim() || '–',
+      score1: score1Str,
+      score2: score2Str,
       reportSubmitted: false,
       outcome,
       notes: notes.trim() || undefined,
@@ -45,8 +53,10 @@ export default function MatchForm({ onSaved, competitions: propCompetitions }: M
     setTeam1('')
     setTeam2('')
     setLocation('')
-    setScore1('')
-    setScore2('')
+    setGoals1('')
+    setPoints1('')
+    setGoals2('')
+    setPoints2('')
     setOutcome('Result')
     setNotes('')
     onSaved?.()
@@ -105,17 +115,31 @@ export default function MatchForm({ onSaved, competitions: propCompetitions }: M
       </div>
       {!isCallOff && (
         <div style={styles.row}>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <div style={{ flex: 1 }}>
-              <label style={styles.label}>Team 1 score (goals and points)</label>
-              <input value={score1} onChange={(e) => setScore1(e.target.value)} style={styles.input} placeholder="e.g. 1(5)" />
+          <p style={styles.hint}>1 goal = 3 points, 1 point = 1. Leave blank if no score.</p>
+          <div style={styles.scoreGrid}>
+            <div style={styles.scoreBlock}>
+              <div style={styles.scoreBlockLabel}>{team1 || 'Team 1'}</div>
+              <div style={styles.scoreInputRow}>
+                <label style={styles.smallLabel}>Goals</label>
+                <input type="number" min={0} value={goals1} onChange={(e) => setGoals1(e.target.value)} style={styles.scoreInput} placeholder="0" />
+              </div>
+              <div style={styles.scoreInputRow}>
+                <label style={styles.smallLabel}>Points</label>
+                <input type="number" min={0} value={points1} onChange={(e) => setPoints1(e.target.value)} style={styles.scoreInput} placeholder="0" />
+              </div>
             </div>
-            <div style={{ flex: 1 }}>
-              <label style={styles.label}>Team 2 score (goals and points)</label>
-              <input value={score2} onChange={(e) => setScore2(e.target.value)} style={styles.input} placeholder="e.g. 5(11)" />
+            <div style={styles.scoreBlock}>
+              <div style={styles.scoreBlockLabel}>{team2 || 'Team 2'}</div>
+              <div style={styles.scoreInputRow}>
+                <label style={styles.smallLabel}>Goals</label>
+                <input type="number" min={0} value={goals2} onChange={(e) => setGoals2(e.target.value)} style={styles.scoreInput} placeholder="0" />
+              </div>
+              <div style={styles.scoreInputRow}>
+                <label style={styles.smallLabel}>Points</label>
+                <input type="number" min={0} value={points2} onChange={(e) => setPoints2(e.target.value)} style={styles.scoreInput} placeholder="0" />
+              </div>
             </div>
           </div>
-          <p style={styles.hint}>Format: goals(points). 1 goal = 3 points, 1 point = 1. e.g. 1(5) = 1 goal, 5 points = 8 total.</p>
         </div>
       )}
       {isCallOff && (
@@ -144,7 +168,13 @@ const styles: Record<string, React.CSSProperties> = {
   form: { padding: 16, maxWidth: 480, margin: '0 auto' },
   row: { marginBottom: 12 },
   label: { display: 'block', marginBottom: 4, fontSize: 14, color: 'var(--text-muted)' },
-  hint: { fontSize: 12, color: 'var(--text-muted)', marginTop: 6, marginBottom: 0 },
+  hint: { fontSize: 12, color: 'var(--text-muted)', marginBottom: 8, marginTop: 0 },
   input: { width: '100%', padding: 10, borderRadius: 8, border: '1px solid var(--bg-card)', background: 'var(--bg)', color: 'var(--text)' },
+  scoreGrid: { display: 'flex', gap: 16, flexWrap: 'wrap' },
+  scoreBlock: { flex: 1, minWidth: 120 },
+  scoreBlockLabel: { fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'var(--text)' },
+  scoreInputRow: { marginBottom: 8 },
+  smallLabel: { display: 'block', fontSize: 12, color: 'var(--text-muted)', marginBottom: 2 },
+  scoreInput: { width: '100%', padding: 8, borderRadius: 8, border: '1px solid var(--bg-card)', background: 'var(--bg)', color: 'var(--text)' },
   button: { marginTop: 16, width: '100%', padding: 12, background: 'var(--accent)', color: 'var(--bg)', border: 'none', borderRadius: 8, fontWeight: 600 },
 }
