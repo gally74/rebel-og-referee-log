@@ -36,6 +36,18 @@ export default function MatchList({ matches, onRefresh, showPendingOnly }: Match
 
   const pendingCount = matches.filter((m) => m.outcome === 'Result' && !m.reportSubmitted).length
 
+  /** GAA: goal = 3 pts, point = 1. Parse "1(5)" -> 8 total, or null if not parseable. */
+  const scoreTotal = (s: string): number | null => {
+    const m = /^(\d+)\((\d+)\)$/.exec((s || '').trim())
+    if (!m) return null
+    return 3 * parseInt(m[1], 10) + parseInt(m[2], 10)
+  }
+
+  const formatScore = (score: string): string => {
+    const total = scoreTotal(score)
+    return total !== null ? `${score} (${total} pts)` : score
+  }
+
   return (
     <div style={styles.wrap}>
       {!showPendingOnly && (
@@ -65,7 +77,7 @@ export default function MatchList({ matches, onRefresh, showPendingOnly }: Match
             <div style={styles.teams}>{m.team1} v {m.team2}</div>
             <div style={styles.meta}>{m.competition}</div>
             {m.outcome === 'Result' && (
-              <div style={styles.scores}>{m.score1} – {m.score2}</div>
+              <div style={styles.scores}>{formatScore(m.score1)} – {formatScore(m.score2)}</div>
             )}
             {m.outcome !== 'Result' && m.notes && (
               <div style={styles.notes}>{m.outcome}: {m.notes}</div>

@@ -104,15 +104,18 @@ export default function MatchForm({ onSaved, competitions: propCompetitions }: M
         </select>
       </div>
       {!isCallOff && (
-        <div style={{ ...styles.row, display: 'flex', gap: 8 }}>
-          <div style={{ flex: 1 }}>
-            <label style={styles.label}>Score 1</label>
-            <input value={score1} onChange={(e) => setScore1(e.target.value)} style={styles.input} placeholder="e.g. 1(5)" />
+        <div style={styles.row}>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <div style={{ flex: 1 }}>
+              <label style={styles.label}>Team 1 score (goals and points)</label>
+              <input value={score1} onChange={(e) => setScore1(e.target.value)} style={styles.input} placeholder="e.g. 1(5)" />
+            </div>
+            <div style={{ flex: 1 }}>
+              <label style={styles.label}>Team 2 score (goals and points)</label>
+              <input value={score2} onChange={(e) => setScore2(e.target.value)} style={styles.input} placeholder="e.g. 5(11)" />
+            </div>
           </div>
-          <div style={{ flex: 1 }}>
-            <label style={styles.label}>Score 2</label>
-            <input value={score2} onChange={(e) => setScore2(e.target.value)} style={styles.input} placeholder="e.g. 5(11)" />
-          </div>
+          <p style={styles.hint}>Format: goals(points). 1 goal = 3 points, 1 point = 1. e.g. 1(5) = 1 goal, 5 points = 8 total.</p>
         </div>
       )}
       {isCallOff && (
@@ -141,6 +144,7 @@ const styles: Record<string, React.CSSProperties> = {
   form: { padding: 16, maxWidth: 480, margin: '0 auto' },
   row: { marginBottom: 12 },
   label: { display: 'block', marginBottom: 4, fontSize: 14, color: 'var(--text-muted)' },
+  hint: { fontSize: 12, color: 'var(--text-muted)', marginTop: 6, marginBottom: 0 },
   input: { width: '100%', padding: 10, borderRadius: 8, border: '1px solid var(--bg-card)', background: 'var(--bg)', color: 'var(--text)' },
   button: { marginTop: 16, width: '100%', padding: 12, background: 'var(--accent)', color: 'var(--bg)', border: 'none', borderRadius: 8, fontWeight: 600 },
 }
