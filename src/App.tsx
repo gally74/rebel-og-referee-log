@@ -38,6 +38,12 @@ function Layout() {
           </Link>
         ))}
       </nav>
+      {pendingCount > 0 && location.pathname !== '/pending' && (
+        <div style={reminderBannerStyle}>
+          You have {pendingCount} match{pendingCount !== 1 ? 'es' : ''} with report not yet submitted.{' '}
+          <Link to="/pending" style={reminderLinkStyle}>View and mark submitted</Link>
+        </div>
+      )}
       <main style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<MatchForm onSaved={refresh} />} />
@@ -82,4 +88,18 @@ const navLinkStyle: React.CSSProperties = {
 const navLinkActive: React.CSSProperties = {
   background: 'var(--accent)',
   color: 'var(--bg)',
+}
+
+const reminderBannerStyle: React.CSSProperties = {
+  padding: '10px 16px',
+  background: 'rgba(124, 179, 66, 0.2)',
+  borderBottom: '1px solid var(--accent)',
+  fontSize: 14,
+  color: 'var(--text)',
+}
+
+const reminderLinkStyle: React.CSSProperties = {
+  color: 'var(--accent)',
+  fontWeight: 600,
+  textDecoration: 'underline',
 }
