@@ -1,11 +1,12 @@
 :root {
-  --bg: #0d3b2c;
-  --bg-card: #145c42;
-  --accent: #7cb342;
-  --text: #e8f5e9;
-  --text-muted: #a5d6a7;
-  --danger: #ef5350;
-  --success: #66bb6a;
+  /* Cursor IDE–style dark theme */
+  --bg: #1e1e1e;
+  --bg-card: #252526;
+  --accent: #569cd6;
+  --text: #d4d4d4;
+  --text-muted: #808080;
+  --danger: #f48771;
+  --success: #4ec9b0;
 }
 
 * {

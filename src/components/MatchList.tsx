@@ -143,7 +143,7 @@ const styles: Record<string, React.CSSProperties> = {
   teams: { fontWeight: 600, marginBottom: 4 },
   meta: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 },
   scores: { fontSize: 14, marginBottom: 4 },
-  resultSummary: { background: 'rgba(0,0,0,0.15)', borderRadius: 8, padding: 8, marginBottom: 8 },
+  resultSummary: { background: 'rgba(255,255,255,0.06)', borderRadius: 8, padding: 8, marginBottom: 8 },
   resultTotals: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 },
   resultLine: { fontSize: 14, fontWeight: 600 },
   notes: { fontSize: 13, color: 'var(--text-muted)', marginBottom: 8 },

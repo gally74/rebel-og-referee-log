@@ -92,7 +92,7 @@ const navLinkActive: React.CSSProperties = {
 
 const reminderBannerStyle: React.CSSProperties = {
   padding: '10px 16px',
-  background: 'rgba(124, 179, 66, 0.2)',
+  background: 'rgba(86, 156, 214, 0.12)',
   borderBottom: '1px solid var(--accent)',
   fontSize: 14,
   color: 'var(--text)',
