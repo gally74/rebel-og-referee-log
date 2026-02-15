@@ -1,0 +1,10 @@
+{
+  "name": "GAA Referee Log",
+  "short_name": "Referee Log",
+  "description": "Log GAA matches and compare with admin spreadsheet",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d3b2c",
+  "theme_color": "#0d3b2c",
+  "icons": []
+}

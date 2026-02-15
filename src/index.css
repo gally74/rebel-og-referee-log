@@ -1,0 +1,39 @@
+:root {
+  --bg: #0d3b2c;
+  --bg-card: #145c42;
+  --accent: #7cb342;
+  --text: #e8f5e9;
+  --text-muted: #a5d6a7;
+  --danger: #ef5350;
+  --success: #66bb6a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  min-height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+a {
+  color: var(--accent);
+}
+
+input, select, textarea, button {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
